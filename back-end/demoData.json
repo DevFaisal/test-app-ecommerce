@@ -1,0 +1,136 @@
+{
+  "users": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123"
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "password456"
+    },
+    {
+      "name": "User 3",
+      "email": "user3@example.com",
+      "password": "password789"
+    },
+    {
+      "name": "User 4",
+      "email": "user4@example.com",
+      "password": "password012"
+    },
+    {
+      "name": "User 5",
+      "email": "user5@example.com",
+      "password": "password345"
+    },
+    {
+      "name": "User 6",
+      "email": "user6@example.com",
+      "password": "password678"
+    },
+    {
+      "name": "User 7",
+      "email": "user7@example.com",
+      "password": "password901"
+    },
+    {
+      "name": "User 8",
+      "email": "user8@example.com",
+      "password": "password234"
+    },
+    {
+      "name": "User 9",
+      "email": "user9@example.com",
+      "password": "password567"
+    },
+    {
+      "name": "User 10",
+      "email": "user10@example.com",
+      "password": "password890"
+    },
+    {
+      "name": "User 11",
+      "email": "user11@example.com",
+      "password": "password123"
+    },
+    {
+      "name": "User 12",
+      "email": "user12@example.com",
+      "password": "password456"
+    },
+    {
+      "name": "User 13",
+      "email": "user13@example.com",
+      "password": "password789"
+    },
+    {
+      "name": "User 14",
+      "email": "user14@example.com",
+      "password": "password012"
+    },
+    {
+      "name": "User 15",
+      "email": "user15@example.com",
+      "password": "password345"
+    },
+    {
+      "name": "User 16",
+      "email": "user16@example.com",
+      "password": "password678"
+    },
+    {
+      "name": "User 17",
+      "email": "user17@example.com",
+      "password": "password901"
+    },
+    {
+      "name": "User 18",
+      "email": "user18@example.com",
+      "password": "password234"
+    },
+    {
+      "name": "User 19",
+      "email": "user19@example.com",
+      "password": "password567"
+    },
+    {
+      "name": "User 20",
+      "email": "user20@example.com",
+      "password": "password890"
+    }
+  ],
+  "products": [
+    {
+      "name": "Product 1",
+      "price": 9.99,
+      "description": "This is the first product",
+      "countInStock": 10
+    },
+    {
+      "name": "Product 2",
+      "price": 19.99,
+      "description": "This is the second product",
+      "countInStock": 1
+    },
+    {
+      "name": "Product 3",
+      "price": 29.99,
+      "description": "This is the third product",
+      "countInStock": 120
+    },
+    {
+      "name": "Product 4",
+      "price": 39.99,
+      "description": "This is the fourth product",
+      "countInStock": 40
+    },
+    {
+      "name": "Product 5",
+      "price": 49.99,
+      "description": "This is the fifth product",
+      "countInStock": 100
+    }
+  ]
+}

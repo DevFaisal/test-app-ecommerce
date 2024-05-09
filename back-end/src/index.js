@@ -6,6 +6,8 @@ import ProductRouter from "../routes/productRoute.js";
 import cartRouter from "../routes/cartRoute.js";
 import productModel from "../models/productModel.js";
 import cartModel from "../models/CartMode.js";
+import userModel from "../models/userModel.js";
+import demoData from "../demoData.json" with { "type": "json" };;
 
 const app = express();
 const port = 3000;
@@ -25,7 +27,39 @@ app.use("/api/cart", cartRouter);
 //   });
 // });
 
-app.listen(port, () => {
-  connect();
-  console.log(`Server is running on port ${port}`);
+console.log(demoData.products);
+app.post("/demo", (req, res) => {
+  try {
+    productModel.insertMany(demoData.products).then(() => {
+      console.log("Data inserted");
+    });
+    userModel.insertMany(demoData.users).then(() => {
+      console.log("Data inserted");
+    });
+    res.send("Data inserted");
+  } catch (error) {
+    console.log(error);
+  }
 });
+
+app.listen(port, () => {
+  
+  console.log(`Server is running on port ${port}`);
+  connect().then(async () => {
+    console.log("Database connected");
+    if ((await userModel.find()).length === 0) {
+      await userModel.insertMany(demoData.users).then(() => {
+        console.log("Data inserted");
+      });
+      productModel.insertMany(demoData.products).then(() => {
+        console.log("Data inserted");
+      });
+    }
+    return;
+  })
+    .catch((error) => {
+      console.log("Database not connected");
+      console.log(error);
+     });
+});
+
