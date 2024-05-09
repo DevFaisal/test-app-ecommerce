@@ -1,9 +1,10 @@
 {
   "users": [
     {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "password": "password123"
+      "name": "Faisal Farooq",
+      "email": "faisal@example.com",
+      "password": "password123",
+      "isAdmin": true
     },
     {
       "name": "Jane Smith",
