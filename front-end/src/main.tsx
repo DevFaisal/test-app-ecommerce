@@ -10,6 +10,8 @@ import UserContextProvider from "./context/UserContextProvider.tsx";
 import Logout from "./components/Logout.tsx";
 import Cart from "./components/Cart.tsx";
 import UserContext from "./context/UserContext.ts";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import AdminPage from "./pages/AdminPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <Cart />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+  },
+  {
+    path: "/admin",
+    element: <AdminPage />,
   },
 ]);
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import NavBar from "./NavBar";
 import UserContext from "../context/UserContext";
 import { redirect, useNavigate } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 
 function Cart() {
   const [cart, setCart] = React.useState([]);
@@ -49,9 +50,34 @@ function Cart() {
           <h2 className="text-xl font-bolder bg-red-200 p-2">{product.name}</h2>
           <p className="text-xl font-bolder">{product.quantity}</p>
           <p>{product.description}</p>
-          <p>₹{product.price}</p>
+          <p>₹{product.price.toFixed(2)}</p>
+          <button
+            className="bg-red-500 p-2 w-10 rounded-md text-white"
+            onClick={() => {
+              axios
+                .delete(
+                  "http://localhost:3000/api/cart/delete/" + product._id,
+                  {
+                    headers: {
+                      Authorization: localStorage.getItem("token"),
+                    },
+                  }
+                )
+                .then((res) => {
+                  console.log(res.data);
+                  setCart(cart.filter((item) => item._id !== product._id));
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            }}
+          >
+            <Trash2 />
+          </button>
         </div>
       ))}
+      <div>Total Price</div>
+      {cart?.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
     </div>
   );
 }

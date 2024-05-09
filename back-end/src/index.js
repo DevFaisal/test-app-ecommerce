@@ -23,7 +23,7 @@ app.use("/api/products", ProductRouter);
 app.use("/api/cart", cartRouter);
 
 app.post("/deleteDB", (req, res) => {
-  productModel.deleteMany({}).then(() => {
+  cartModel.deleteMany({}).then(() => {
     res.status(200).json({ message: "Database deleted" });
   });
 });

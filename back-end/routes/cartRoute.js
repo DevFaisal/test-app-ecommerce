@@ -2,6 +2,7 @@ import express from "express";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import cartModel from "../models/CartMode.js";
 import productModel from "../models/productModel.js";
+import userModel from "../models/userModel.js";
 
 const cartRouter = express.Router();
 
@@ -94,21 +95,25 @@ cartRouter.get("/get/all", authMiddleware, async (req, res) => {
 cartRouter.delete("/delete/:id", authMiddleware, async (req, res) => {
   const { _id } = req.user;
   const { id } = req.params;
+
   try {
-    const cart = await cartModel.findOne({ user: _id });
+    const cartId = await userModel.findById({ _id }).select("cart");
+    const newID = cartId._id.toHexString();
+
+    const cart = await cartModel.findOne({ user: newID });
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
     const existingCartItem = await cartModel.findOne({
       user: _id,
-      "cartItems.product": id,
+      "cartItems._id": id,
     });
     if (!existingCartItem) {
       return res.status(404).json({ message: "Product not found in cart" });
     }
     await cartModel.findOneAndUpdate(
       { user: _id },
-      { $pull: { cartItems: { product: id } } }
+      { $pull: { cartItems: { _id: id } } }
     );
     return res.status(200).json({ message: "Product removed from cart" });
   } catch (error) {
