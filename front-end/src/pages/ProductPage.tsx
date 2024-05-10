@@ -1,13 +1,12 @@
-import React from "react";
-import Products from "../components/Products";
-import NavBar from "../components/NavBar";
+import Container from "@/components/Container";
+import Products from "@/components/Products";
+
 
 function ProductPage() {
   return (
-    <div>
-      <NavBar />
+    <Container>
       <Products />
-    </div>
+    </Container>
   );
 }
 

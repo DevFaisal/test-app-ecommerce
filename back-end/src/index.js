@@ -23,7 +23,7 @@ app.use("/api/products", ProductRouter);
 app.use("/api/cart", cartRouter);
 
 app.post("/deleteDB", (req, res) => {
-  cartModel.deleteMany({}).then(() => {
+  productModel.deleteMany({}).then(() => {
     res.status(200).json({ message: "Database deleted" });
   });
 });
@@ -33,16 +33,16 @@ app.post("/demo", (req, res) => {
     productModel.insertMany(demoData.products).then(() => {
       console.log("Data inserted");
     });
-    const demoUsersPasswordHashed = demoData.users.map((user) => { 
-      return {
-        ...user,
-        password: bcrypt.hashSync(user.password, 10),
-      };
-    });
-    console.log(demoUsersPasswordHashed);
-    userModel.insertMany(demoUsersPasswordHashed).then(() => {
-      console.log("Data inserted");
-    });
+    // const demoUsersPasswordHashed = demoData.users.map((user) => { 
+    //   return {
+    //     ...user,
+    //     password: bcrypt.hashSync(user.password, 10),
+    //   };
+    // });
+    // console.log(demoUsersPasswordHashed);
+    // userModel.insertMany(demoUsersPasswordHashed).then(() => {
+    //   console.log("Data inserted");
+    // });
     res.status(200).json({ message: "Demo data inserted" });
   } catch (error) {
     console.log(error);
@@ -51,13 +51,14 @@ app.post("/demo", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-  connect().then(async  () => { 
-    if( await userModel.find({}).length === 0){
-    fetch("http://localhost:3000/demo", {
-      method: "POST",
-    });
-  }
-  });
+  connect()
+    // .then(async () => { 
+  //   if( await userModel.find({}).length === 0){
+  //   fetch("http://localhost:3000/demo", {
+  //     method: "POST",
+  //   });
+  // }
+  // });
   
 });
 

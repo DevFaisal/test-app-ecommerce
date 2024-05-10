@@ -1,10 +1,22 @@
 import React, { useContext, useEffect } from "react";
+import { NavLink as Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import axios from "axios";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
+import { useToast } from "@/components/ui/use-toast";
 
 function Login() {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const { user } = useContext<any>(UserContext);
 
@@ -26,49 +38,82 @@ function Login() {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
+        toast({
+          variant: "default",
+          title: "Login successful",
+          description: `Welcome back, ${res.data.user.name}!`,
+        });
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.error(err);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "Invalid credentials",
+        });
       });
   };
 
-  if (user) {
-    navigate("/");
-  }
-
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user]);
   return (
     <>
-      <NavBar />
-      <div className="flex justify-center items-center h-screen">
-        <form>
-          <div className="flex flex-col  bg-slate-300 p-4 gap-3">
-            <h1>Login</h1>
-            <input
-              onChange={(e) =>
-                setCredentials({ ...credentials, username: e.target.value })
-              }
-              className="px-2 py-1  rounded-md"
-              type="text"
-              placeholder="email"
-            />
-            <input
-              onChange={(e) =>
-                setCredentials({ ...credentials, password: e.target.value })
-              }
-              className="px-2 py-1 rounded-md"
-              type="password"
-              placeholder="Password"
-              autoComplete="off"
-            />
-            <button
-              onClick={login}
-              className=" px-2 py-1 bg-green-500 text-white rounded-md "
-            >
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                onChange={(e) =>
+                  setCredentials({ ...credentials, username: e.target.value })
+                }
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+                <Link to="#" className="ml-auto inline-block text-sm underline">
+                  Forgot your password?
+                </Link>
+              </div>
+              <Input
+                onChange={(e) =>
+                  setCredentials({ ...credentials, password: e.target.value })
+                }
+                id="password"
+                type="password"
+                required
+              />
+            </div>
+            <Button onClick={login} type="submit" className="w-full">
               Login
-            </button>
+            </Button>
+            {/* <Button variant="outline" className="w-full">
+                Login with Google
+              </Button> */}
           </div>
-        </form>
-      </div>
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link to="#" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 }

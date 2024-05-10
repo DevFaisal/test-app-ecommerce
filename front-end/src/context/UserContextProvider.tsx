@@ -25,7 +25,7 @@ function UserContextProvider({ children }: any) {
           console.error(err);
         });
     }
-  }, []);
+  }, [user]);
   return (
     <UserContext.Provider value={{ user, setUser, admin }}>
       {children}
